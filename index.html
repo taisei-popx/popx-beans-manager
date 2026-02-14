@@ -2923,6 +2923,8 @@
                     if (multi) return parseInt(multi[1]) * parseInt(multi[2]);
                     const oz = w.match(/(\d+(?:\.\d+)?)\s*oz/i);
                     if (oz) return Math.round(parseFloat(oz[1]) * 28.35);
+                    const kg = w.match(/(\d+(?:\.\d+)?)\s*kg/i);
+                    if (kg) return Math.round(parseFloat(kg[1]) * 1000);
                     const g = w.match(/(\d+)\s*g/i);
                     if (g) return parseInt(g[1]);
                     const fallback = w.match(/(\d+)/);
