@@ -147,47 +147,43 @@
 
         /* ===== STATS BAR ===== */
         .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .stat-card {
-            background-color: var(--color-card-bg);
-            padding: 20px;
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-subtle);
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--color-card-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(36,54,104,0.08);
+            font-size: 13px;
         }
 
         .stat-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--gradient-accent);
+            display: none;
         }
 
         .stat-label {
             font-family: var(--font-heading);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             color: var(--color-text-secondary);
-            letter-spacing: var(--letter-spacing-heading);
+            letter-spacing: 0.3px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 0;
         }
 
         .stat-value {
             font-family: var(--font-heading);
-            font-size: 28px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--color-navy);
-            letter-spacing: var(--letter-spacing-heading);
+            letter-spacing: 0;
         }
 
         /* ===== TOOLBAR ===== */
