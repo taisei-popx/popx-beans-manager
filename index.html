@@ -1610,15 +1610,19 @@
                             <table class="analytics-table" id="cafe-pricing-table">
                                 <thead>
                                     <tr>
-                                        <th>豆</th>
-                                        <th>ロースター</th>
-                                        <th>1袋原価</th>
-                                        <th>10gあたり</th>
-                                        <th>15gあたり</th>
-                                        <th>希少性</th>
-                                        <th>売値 (10g杯)</th>
-                                        <th>売値 (15g杯)</th>
-                                        <th>粗利率</th>
+                                        <th rowspan="2" style="vertical-align:middle;">豆</th>
+                                        <th rowspan="2" style="vertical-align:middle;">ロースター</th>
+                                        <th colspan="3" style="text-align:center; background:rgba(255,107,107,0.08); color:#e74c3c; font-size:11px; letter-spacing:1px; border-bottom:2px solid rgba(255,107,107,0.2);">原価</th>
+                                        <th rowspan="2" style="vertical-align:middle;">希少性</th>
+                                        <th colspan="2" style="text-align:center; background:rgba(36,54,104,0.06); color:var(--color-navy); font-size:11px; letter-spacing:1px; border-bottom:2px solid rgba(36,54,104,0.15);">売値</th>
+                                        <th rowspan="2" style="vertical-align:middle;">粗利率</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1袋</th>
+                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1杯 (10g)</th>
+                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1杯 (15g)</th>
+                                        <th style="background:rgba(36,54,104,0.03); font-size:11px;">1杯 (10g)</th>
+                                        <th style="background:rgba(36,54,104,0.03); font-size:11px;">1杯 (15g)</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -2949,12 +2953,12 @@
                 <tr>
                     <td style="font-weight:500; white-space:normal; min-width:180px;">${r.name}</td>
                     <td style="color:#666; white-space:nowrap;">${r.roaster}</td>
-                    <td style="white-space:nowrap;">¥${r.bagPrice.toLocaleString()} <span style="font-size:10px;color:#999;">(${r.weight})</span></td>
-                    <td style="white-space:nowrap;">¥${r.costPer10g.toLocaleString()}</td>
-                    <td style="white-space:nowrap;">¥${r.costPer15g.toLocaleString()}</td>
+                    <td style="white-space:nowrap; background:rgba(255,107,107,0.03);">¥${r.bagPrice.toLocaleString()} <span style="font-size:10px;color:#999;">(${r.weight})</span></td>
+                    <td style="white-space:nowrap; background:rgba(255,107,107,0.03); color:#c0392b;">¥${r.costPer10g.toLocaleString()}</td>
+                    <td style="white-space:nowrap; background:rgba(255,107,107,0.03); color:#c0392b;">¥${r.costPer15g.toLocaleString()}</td>
                     <td><span class="rarity-badge ${r.rarityClass}">${r.rarityLabel}</span></td>
-                    <td style="font-weight:600; color:var(--color-navy); white-space:nowrap;">¥${r.sellPrice10g.toLocaleString()}</td>
-                    <td style="font-weight:700; color:var(--color-navy); white-space:nowrap;">¥${r.sellPrice15g.toLocaleString()}</td>
+                    <td style="font-weight:600; white-space:nowrap; background:rgba(36,54,104,0.03); color:var(--color-navy);">¥${r.sellPrice10g.toLocaleString()}</td>
+                    <td style="font-weight:700; white-space:nowrap; background:rgba(36,54,104,0.03); color:var(--color-navy);">¥${r.sellPrice15g.toLocaleString()}</td>
                     <td>
                         <span class="cost-ratio-bar" style="width:${Math.min(parseFloat(r.grossMargin), 60)}px; background:${r.marginColor};"></span>
                         ${r.grossMargin}%
