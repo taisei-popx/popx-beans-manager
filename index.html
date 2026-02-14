@@ -736,6 +736,37 @@
             padding-bottom: 10px;
         }
 
+        .sortable-th {
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
+        }
+        .sortable-th:hover {
+            background: #f0f4ff !important;
+        }
+        .sortable-th.sort-active {
+            background: #e8edf8 !important;
+        }
+        .sort-arrow {
+            font-size: 10px;
+            opacity: 0.3;
+        }
+        .sort-arrow::after {
+            content: '▼';
+        }
+        .sortable-th.sort-asc .sort-arrow {
+            opacity: 1;
+        }
+        .sortable-th.sort-asc .sort-arrow::after {
+            content: '▲';
+        }
+        .sortable-th.sort-desc .sort-arrow {
+            opacity: 1;
+        }
+        .sortable-th.sort-desc .sort-arrow::after {
+            content: '▼';
+        }
+
         .rarity-badge {
             display: inline-block;
             padding: 3px 10px;
@@ -1618,15 +1649,15 @@
                             <table class="analytics-table" id="cafe-pricing-table">
                                 <thead>
                                     <tr>
-                                        <th>豆</th>
-                                        <th>ロースター</th>
-                                        <th>1袋<br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
-                                        <th>1杯 (10g)<br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
-                                        <th>1杯 (15g)<br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
-                                        <th>希少性</th>
-                                        <th>1杯 (10g)<br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#243668;padding:1px 6px;border-radius:8px;letter-spacing:0;">売値</span></th>
-                                        <th>1杯 (15g)<br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#243668;padding:1px 6px;border-radius:8px;letter-spacing:0;">売値</span></th>
-                                        <th>粗利率</th>
+                                        <th data-sort="name" class="sortable-th">豆 <span class="sort-arrow"></span></th>
+                                        <th data-sort="roaster" class="sortable-th">ロースター <span class="sort-arrow"></span></th>
+                                        <th data-sort="bagPrice" class="sortable-th">1袋 <span class="sort-arrow"></span><br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
+                                        <th data-sort="costPer10g" class="sortable-th">1杯 (10g) <span class="sort-arrow"></span><br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
+                                        <th data-sort="costPer15g" class="sortable-th">1杯 (15g) <span class="sort-arrow"></span><br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#e74c3c;padding:1px 6px;border-radius:8px;letter-spacing:0;">原価</span></th>
+                                        <th data-sort="rarityScore" class="sortable-th">希少性 <span class="sort-arrow"></span></th>
+                                        <th data-sort="sellPrice10g" class="sortable-th">1杯 (10g) <span class="sort-arrow"></span><br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#243668;padding:1px 6px;border-radius:8px;letter-spacing:0;">売値</span></th>
+                                        <th data-sort="sellPrice15g" class="sortable-th">1杯 (15g) <span class="sort-arrow"></span><br><span style="display:inline-block;margin-top:4px;font-size:9px;font-weight:700;color:#fff;background:#243668;padding:1px 6px;border-radius:8px;letter-spacing:0;">売値</span></th>
+                                        <th data-sort="grossMargin" class="sortable-th">粗利率 <span class="sort-arrow"></span></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -2971,7 +3002,55 @@
                     marginColor,
                     rarityScore
                 };
-            }).sort((a, b) => b.rarityScore - a.rarityScore);
+            });
+
+            // Store for sorting
+            window._cafePricingRows = rows;
+            window._cafePricingSortKey = window._cafePricingSortKey || 'rarityScore';
+            window._cafePricingSortDir = window._cafePricingSortDir || 'desc';
+
+            renderCafePricingRows();
+
+            // Attach sort handlers (only once)
+            if (!window._cafeSortBound) {
+                window._cafeSortBound = true;
+                document.querySelectorAll('#cafe-pricing-table .sortable-th').forEach(th => {
+                    th.addEventListener('click', () => {
+                        const key = th.dataset.sort;
+                        if (window._cafePricingSortKey === key) {
+                            window._cafePricingSortDir = window._cafePricingSortDir === 'asc' ? 'desc' : 'asc';
+                        } else {
+                            window._cafePricingSortKey = key;
+                            // Text fields default asc, numbers default desc
+                            window._cafePricingSortDir = (key === 'name' || key === 'roaster') ? 'asc' : 'desc';
+                        }
+                        // Update header UI
+                        document.querySelectorAll('#cafe-pricing-table .sortable-th').forEach(h => {
+                            h.classList.remove('sort-active', 'sort-asc', 'sort-desc');
+                        });
+                        th.classList.add('sort-active', 'sort-' + window._cafePricingSortDir);
+                        renderCafePricingRows();
+                    });
+                });
+                // Set initial active header
+                const initTh = document.querySelector('#cafe-pricing-table .sortable-th[data-sort="rarityScore"]');
+                if (initTh) initTh.classList.add('sort-active', 'sort-desc');
+            }
+        }
+
+        function renderCafePricingRows() {
+            const tbody = document.querySelector('#cafe-pricing-table tbody');
+            if (!tbody || !window._cafePricingRows) return;
+
+            const rows = [...window._cafePricingRows];
+            const key = window._cafePricingSortKey;
+            const dir = window._cafePricingSortDir === 'asc' ? 1 : -1;
+
+            rows.sort((a, b) => {
+                const va = a[key], vb = b[key];
+                if (typeof va === 'string') return dir * va.localeCompare(vb);
+                return dir * ((parseFloat(va) || 0) - (parseFloat(vb) || 0));
+            });
 
             tbody.innerHTML = rows.map(r => `
                 <tr>
