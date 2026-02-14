@@ -2966,25 +2966,28 @@
                 else { rarityLabel = 'Common'; rarityClass = 'rarity-common'; }
 
                 // Suggested cafe price: target gross margin by rarity
-                // Legendary: 粗利率 ~85% → cost is ~15% of price
-                // Rare: 粗利率 ~80% → cost is ~20%
-                // Uncommon: 粗利率 ~75% → cost is ~25%
-                // Common: 粗利率 ~70% → cost is ~30%
+                // Cap at ¥8,000 per cup — high-end beans accept lower margins
+                const MAX_SELL_PRICE = 8000;
                 let targetCostRatio;
-                if (rarityScore >= 9) targetCostRatio = 0.15;
-                else if (rarityScore >= 7) targetCostRatio = 0.20;
-                else if (rarityScore >= 5) targetCostRatio = 0.25;
-                else targetCostRatio = 0.30;
+                if (rarityScore >= 9) targetCostRatio = 0.15;      // Legendary ~85%
+                else if (rarityScore >= 7) targetCostRatio = 0.20;  // Rare ~80%
+                else if (rarityScore >= 5) targetCostRatio = 0.25;  // Uncommon ~75%
+                else targetCostRatio = 0.30;                        // Common ~70%
 
-                const sellPrice10g = Math.ceil(costPer10g / targetCostRatio / 50) * 50;
-                const sellPrice15g = Math.ceil(costPer15g / targetCostRatio / 50) * 50;
-                // Use 15g as the primary for gross margin display
+                let sellPrice10g = Math.ceil(costPer10g / targetCostRatio / 50) * 50;
+                let sellPrice15g = Math.ceil(costPer15g / targetCostRatio / 50) * 50;
+
+                // Apply price cap
+                if (sellPrice10g > MAX_SELL_PRICE) sellPrice10g = MAX_SELL_PRICE;
+                if (sellPrice15g > MAX_SELL_PRICE) sellPrice15g = MAX_SELL_PRICE;
+
+                // Recalculate actual gross margin after cap
                 const grossMargin = ((1 - costPer15g / sellPrice15g) * 100).toFixed(1);
 
-                // Gross margin color
+                // Gross margin color — adjusted thresholds for capped pricing
                 let marginColor;
-                if (grossMargin >= 80) marginColor = '#059669';
-                else if (grossMargin >= 70) marginColor = '#fbbf24';
+                if (grossMargin >= 70) marginColor = '#059669';
+                else if (grossMargin >= 50) marginColor = '#fbbf24';
                 else marginColor = '#ff6b6b';
 
                 return {
