@@ -3082,6 +3082,9 @@
                 currentTab = button.dataset.tab;
                 document.getElementById('content-' + currentTab).classList.remove('hidden');
 
+                // Save tab state to URL hash
+                history.replaceState(null, '', '#' + currentTab);
+
                 // Toggle toolbar/stats visibility for analytics
                 const toolbar = document.querySelector('.toolbar');
                 const statsBar = document.querySelector('.stats-bar');
@@ -3096,6 +3099,15 @@
                 }
             });
         });
+
+        // Restore tab from URL hash on load
+        (function restoreTab() {
+            const hash = location.hash.replace('#', '');
+            if (hash && document.getElementById('content-' + hash)) {
+                const btn = document.querySelector(`.tab-button[data-tab="${hash}"]`);
+                if (btn) btn.click();
+            }
+        })();
 
         document.getElementById('view-card').addEventListener('click', () => {
             document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
