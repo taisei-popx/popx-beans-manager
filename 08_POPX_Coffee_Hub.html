@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POPX Coffee Lab - Specialty Coffee × Character IP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,13 +13,15 @@
         }
 
         :root {
-            --navy: #243668;
-            --pink: #ff9fb4;
-            --cyan: #7af2e0;
-            --dark-bg: #0f1419;
-            --card-bg: rgba(36, 54, 104, 0.3);
-            --text-light: #e8e8e8;
-            --text-muted: #a0a0a0;
+            --color-navy: #243668;
+            --color-pink: #ff9fb4;
+            --color-cyan: #7af2e0;
+            --color-text: #4b3e3c;
+            --color-bg: #fcfcfc;
+            --color-black: #000;
+            --color-white: #fff;
+            --spacing-base: 2rem;
+            --max-width: 1200px;
         }
 
         html {
@@ -27,11 +29,23 @@
         }
 
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a2d4d 100%);
-            color: var(--text-light);
+            font-family: 'Noto Sans JP', 'Montserrat', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
             overflow-x: hidden;
             min-height: 100vh;
+            letter-spacing: 0.05em;
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* JAPANESE TEXT SUPPORT */
+        body, .tab-btn, .glossary-term, .process-name, .roaster-name, .origin-name, .variety-name, .card-title {
+            font-feature-settings: "palt" 1;
         }
 
         /* HEADER & NAVIGATION */
@@ -40,14 +54,14 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(122, 242, 224, 0.1);
-            padding: 1rem 2rem;
+            background: var(--color-white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1rem var(--spacing-base);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .header-content {
-            max-width: 1400px;
+            max-width: var(--max-width);
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -56,24 +70,47 @@
 
         .logo {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-navy);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: var(--cyan);
+            color: var(--color-navy);
             font-size: 1.5rem;
             cursor: pointer;
         }
 
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
             .mobile-menu-btn {
                 display: block;
             }
@@ -82,150 +119,122 @@
         /* HERO SECTION */
         .hero {
             margin-top: 5rem;
-            padding: 6rem 2rem;
-            min-height: 70vh;
+            padding: 8rem var(--spacing-base);
+            min-height: 100svh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(36, 54, 104, 0.5) 0%, rgba(255, 159, 180, 0.1) 50%, rgba(122, 242, 224, 0.1) 100%);
+            background: var(--color-bg);
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(122, 242, 224, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -5%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 159, 180, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(30px); }
         }
 
         .hero-content {
             text-align: center;
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
         }
 
         .hero h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 300;
+            color: var(--color-navy);
+            letter-spacing: 0.25em;
+            margin-bottom: 2rem;
+            line-height: 1.1;
         }
 
         .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            font-weight: 300;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            color: var(--color-text);
+            margin-bottom: 4rem;
+            font-weight: 400;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-navy);
+            fill: none;
+            opacity: 0.6;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
         }
 
         /* QUICK LINKS SECTION */
         .quick-links {
-            max-width: 1400px;
-            margin: -4rem auto 4rem;
-            padding: 0 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto -4rem;
+            padding: 0 var(--spacing-base);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-base);
             position: relative;
             z-index: 10;
         }
 
         .quick-link-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(122, 242, 224, 0.2);
-            border-radius: 12px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quick-link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 159, 180, 0.1), transparent);
-            transition: left 0.5s;
+            transition: all 0.3s ease;
         }
 
         .quick-link-card:hover {
-            border-color: var(--cyan);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(122, 242, 224, 0.15);
-        }
-
-        .quick-link-card:hover::before {
-            left: 100%;
+            border-color: var(--color-navy);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
         }
 
         .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: inline-block;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .card-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--color-navy);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
         }
 
         .card-desc {
-            color: var(--text-muted);
+            color: var(--color-text);
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 1.5rem;
+            font-weight: 400;
         }
 
         .card-link {
-            color: var(--cyan);
+            color: var(--color-navy);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: gap 0.3s;
+            transition: gap 0.3s ease;
+            letter-spacing: 0.05em;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .card-link:hover {
@@ -234,54 +243,53 @@
 
         /* WIKI SECTION */
         .wiki-section {
-            max-width: 1400px;
+            max-width: var(--max-width);
             margin: 6rem auto;
-            padding: 0 2rem;
+            padding: 0 var(--spacing-base);
         }
 
         .wiki-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 300;
             text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 4rem;
+            color: var(--color-navy);
+            letter-spacing: 0.08em;
         }
 
         /* TAB NAVIGATION */
         .tab-nav {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid rgba(122, 242, 224, 0.1);
-            overflow-x: auto;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             padding-bottom: 1rem;
             flex-wrap: wrap;
+            overflow-x: auto;
         }
 
         .tab-btn {
             font-family: 'Montserrat', sans-serif;
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: var(--color-text);
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0;
             position: relative;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
             white-space: nowrap;
+            letter-spacing: 0.05em;
         }
 
         .tab-btn:hover {
-            color: var(--cyan);
+            color: var(--color-navy);
         }
 
         .tab-btn.active {
-            color: var(--cyan);
+            color: var(--color-navy);
         }
 
         .tab-btn.active::after {
@@ -291,14 +299,13 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--cyan), var(--pink));
-            border-radius: 1px;
+            background: var(--color-navy);
         }
 
         /* TAB CONTENT */
         .tab-content {
             display: none;
-            animation: fadeIn 0.5s ease-in;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .tab-content.active {
@@ -306,247 +313,296 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* VARIETY GRID */
         .variety-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: var(--spacing-base);
         }
 
         .variety-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(122, 242, 224, 0.15);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .variety-card:hover {
-            border-color: var(--pink);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 159, 180, 0.1);
+            border-color: var(--color-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
         .variety-name {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--cyan);
+            font-weight: 600;
+            color: var(--color-navy);
             margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
         }
 
         .variety-subtitle {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--color-text);
             margin-bottom: 1rem;
-            font-style: italic;
+            opacity: 0.7;
+            font-weight: 500;
         }
 
         .variety-desc {
             font-size: 0.95rem;
             line-height: 1.7;
-            color: var(--text-light);
-            margin-bottom: 1rem;
+            color: var(--color-text);
+            font-weight: 400;
+        }
+
+        .variety-desc + .variety-desc {
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
 
         /* PROCESSING TAB */
         .process-grid {
             display: grid;
-            gap: 2rem;
+            gap: var(--spacing-base);
         }
 
         .process-family {
-            background: var(--card-bg);
-            border: 1px solid rgba(122, 242, 224, 0.15);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 12px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
+            padding: 2.5rem;
         }
 
         .process-family-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--pink);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
         }
 
         .process-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(122, 242, 224, 0.1);
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .process-item:last-child {
             margin-bottom: 0;
             border-bottom: none;
+            padding-bottom: 0;
         }
 
         .process-name {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: var(--cyan);
-            margin-bottom: 0.5rem;
+            color: var(--color-navy);
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            letter-spacing: 0.05em;
         }
 
         .process-stars {
             display: flex;
-            gap: 0.3rem;
-            font-size: 1rem;
+            gap: 0.2rem;
+            font-size: 0.95rem;
         }
 
         .star {
-            color: var(--pink);
+            color: var(--color-navy);
         }
 
         .star.empty {
-            color: var(--text-muted);
-            opacity: 0.3;
+            color: rgba(0, 0, 0, 0.15);
         }
 
         .process-desc {
             font-size: 0.95rem;
-            color: var(--text-muted);
+            color: var(--color-text);
             line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .process-desc-jp {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            line-height: 1.6;
+            margin-top: 0.75rem;
+            font-weight: 400;
+            opacity: 0.85;
         }
 
         /* ORIGINS TAB */
         .origins-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            gap: var(--spacing-base);
+            margin-bottom: 4rem;
         }
 
         .origin-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(122, 242, 224, 0.15);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .origin-card:hover {
-            border-color: var(--cyan);
-            transform: translateY(-5px);
+            border-color: var(--color-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
         .origin-name {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--cyan);
+            font-weight: 600;
+            color: var(--color-navy);
             margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
         }
 
         .origin-bean-count {
-            font-size: 0.9rem;
-            color: var(--pink);
+            font-size: 0.85rem;
+            color: var(--color-pink);
             font-weight: 600;
             margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .origin-desc {
             font-size: 0.95rem;
-            color: var(--text-light);
+            color: var(--color-text);
             line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .origin-desc-jp {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            line-height: 1.6;
+            margin-top: 1rem;
+            font-weight: 400;
+            opacity: 0.85;
         }
 
         .origin-bar-chart {
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(122, 242, 224, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
         }
 
         .chart-item {
             display: flex;
             align-items: center;
-            margin-bottom: 1rem;
-            gap: 1rem;
+            margin-bottom: 1.5rem;
+            gap: 1.5rem;
         }
 
         .chart-label {
-            min-width: 100px;
+            min-width: 120px;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--color-text);
+            font-weight: 500;
         }
 
         .chart-bar-container {
             flex: 1;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .chart-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--cyan), var(--pink));
-            border-radius: 10px;
+            background: var(--color-navy);
+            border-radius: 12px;
             transition: width 0.8s ease-out;
         }
 
         .chart-value {
-            min-width: 30px;
+            min-width: 40px;
             text-align: right;
             font-size: 0.85rem;
-            color: var(--pink);
+            color: var(--color-navy);
             font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
         }
 
         /* ROASTERS TAB */
         .roasters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            gap: var(--spacing-base);
         }
 
         .roaster-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(122, 242, 224, 0.15);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .roaster-card:hover {
-            border-color: var(--pink);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 159, 180, 0.1);
+            border-color: var(--color-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         }
 
         .roaster-name {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--cyan);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-navy);
             margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
         }
 
         .roaster-location {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            font-size: 0.85rem;
+            color: var(--color-text);
             margin-bottom: 1rem;
-            font-style: italic;
+            opacity: 0.7;
+            font-weight: 500;
         }
 
         .roaster-desc {
             font-size: 0.95rem;
             line-height: 1.7;
-            color: var(--text-light);
+            color: var(--color-text);
+            font-weight: 400;
+        }
+
+        .roaster-desc-jp {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-text);
+            margin-top: 1rem;
+            font-weight: 400;
+            opacity: 0.85;
         }
 
         /* GLOSSARY TAB */
@@ -557,71 +613,107 @@
         }
 
         .glossary-item {
-            background: var(--card-bg);
-            border-left: 3px solid var(--cyan);
-            border-radius: 8px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
+            background: var(--color-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 1.75rem;
         }
 
         .glossary-term {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--cyan);
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
         }
 
         .glossary-def {
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            color: var(--color-text);
             line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .glossary-def-jp {
+            font-size: 0.85rem;
+            color: var(--color-text);
+            line-height: 1.5;
+            margin-top: 0.75rem;
+            font-weight: 400;
+            opacity: 0.85;
         }
 
         /* FOOTER */
         footer {
             margin-top: 6rem;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(122, 242, 224, 0.1);
+            padding: 3rem var(--spacing-base);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
             text-align: center;
-            background: rgba(15, 20, 25, 0.5);
+            background: var(--color-bg);
         }
 
         .footer-text {
             font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
+            color: var(--color-text);
+            margin-bottom: 0.75rem;
+            font-weight: 400;
         }
 
         .footer-credit {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--color-text);
             margin-top: 1rem;
+            opacity: 0.6;
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in-scroll {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .fade-in-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem;
+            :root {
+                --spacing-base: 1.5rem;
             }
 
-            .header-content {
-                padding: 0;
+            header {
+                padding: 1rem 1.5rem;
             }
 
             .hero {
-                padding: 3rem 1rem;
+                padding: 6rem 1.5rem;
                 margin-top: 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
 
             .quick-links {
                 grid-template-columns: 1fr;
-                margin: -2rem 1rem 2rem;
+                margin: -3rem 1.5rem 2rem;
                 padding: 0;
             }
 
             .wiki-section {
-                padding: 0 1rem;
+                padding: 0 1.5rem;
+            }
+
+            .wiki-title {
+                font-size: 1.8rem;
             }
 
             .variety-grid,
@@ -632,24 +724,12 @@
             }
 
             .tab-nav {
-                gap: 0.5rem;
+                gap: 1rem;
             }
 
             .tab-btn {
-                padding: 0.5rem 1rem;
+                padding: 0;
                 font-size: 0.9rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .wiki-title {
-                font-size: 1.8rem;
             }
 
             .process-grid {
@@ -660,25 +740,18 @@
                 padding: 1.5rem;
             }
         }
-
-        /* SCROLL EFFECT */
-        .fade-in-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
     <!-- HEADER -->
     <header>
         <div class="header-content">
-            <div class="logo">☕ POPX Coffee Lab</div>
+            <a href="#" class="logo">☕ POPX Coffee Lab</a>
+            <ul class="nav-links">
+                <li><a href="#tools">Tools</a></li>
+                <li><a href="#wiki">Wiki</a></li>
+                <li><a href="#wiki">Glossary</a></li>
+            </ul>
             <button class="mobile-menu-btn">☰</button>
         </div>
     </header>
@@ -687,30 +760,35 @@
     <section class="hero">
         <div class="hero-content">
             <h1>POPX Coffee Lab</h1>
-            <p>Specialty Coffee × Character IP — Where Art Meets Craft</p>
+            <p>Where Art Meets Coffee / アートとコーヒーが出会う場所</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </div>
     </section>
 
-    <!-- QUICK LINKS -->
-    <section class="quick-links">
-        <div class="quick-link-card" onclick="window.location.href='./06_Beans_Manager.html'">
+    <!-- QUICK LINKS / TOOLS -->
+    <section class="quick-links" id="tools">
+        <div class="quick-link-card" onclick="window.location.href='./06_Beans_Manager.html'" style="cursor:pointer;">
             <div class="card-icon">☕</div>
             <div class="card-title">Beans Manager</div>
-            <div class="card-desc">Track & manage 48 specialty beans from 7 roasters across 9 origins</div>
-            <a href="./06_Beans_Manager.html" class="card-link">Explore → </a>
+            <div class="card-desc">Track 48 specialty beans from 7 roasters across 9 origins. Organize, compare, and discover.</div>
+            <a href="./06_Beans_Manager.html" class="card-link">Explore →</a>
         </div>
 
-        <div class="quick-link-card" onclick="window.location.href='./07_Revenue_Simulation.html'">
+        <div class="quick-link-card" onclick="window.location.href='./07_Revenue_Simulation.html'" style="cursor:pointer;">
             <div class="card-icon">📊</div>
             <div class="card-title">Revenue Simulator</div>
-            <div class="card-desc">Model pricing tiers, costs & P&L with 3 dynamic pricing strategies</div>
+            <div class="card-desc">Model P&L across 3 dynamic pricing tiers. Find your break-even and maximize profitability.</div>
             <a href="./07_Revenue_Simulation.html" class="card-link">Simulate →</a>
         </div>
 
-        <div class="quick-link-card" onclick="document.getElementById('wiki').scrollIntoView({behavior:'smooth'})">
+        <div class="quick-link-card" onclick="document.getElementById('wiki').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
             <div class="card-icon">📖</div>
             <div class="card-title">Coffee Wiki</div>
-            <div class="card-desc">Deep dive into varieties, processing, origins, roasters & terminology</div>
+            <div class="card-desc">Deep dive into varieties, processing, origins, roasters, and specialty terminology.</div>
             <a href="#wiki" class="card-link">Learn →</a>
         </div>
     </section>
@@ -721,74 +799,84 @@
 
         <!-- TAB NAVIGATION -->
         <div class="tab-nav">
-            <button class="tab-btn active" data-tab="varieties">品種</button>
-            <button class="tab-btn" data-tab="process">プロセス</button>
-            <button class="tab-btn" data-tab="origins">産地</button>
-            <button class="tab-btn" data-tab="roasters">ロースター</button>
-            <button class="tab-btn" data-tab="glossary">用語集</button>
+            <button class="tab-btn active" data-tab="varieties">Varieties 品種</button>
+            <button class="tab-btn" data-tab="process">Process 精製</button>
+            <button class="tab-btn" data-tab="origins">Origins 産地</button>
+            <button class="tab-btn" data-tab="roasters">Roasters 焙煎所</button>
+            <button class="tab-btn" data-tab="glossary">Glossary 用語集</button>
         </div>
 
         <!-- VARIETIES TAB -->
         <div id="varieties" class="tab-content active">
             <div class="variety-grid">
-                <div class="variety-card">
-                    <div class="variety-name">Geisha / Gesha</div>
-                    <div class="variety-subtitle">The Champagne of Coffee</div>
-                    <div class="variety-desc">Originated in Gesha village, Ethiopia and transplanted to Panama's Boquete highlands, this legendary variety is revered for its extraordinary floral character. Jasmine, bergamot, and tropical fruit notes create a profile that breaks price records at auction. POPX carries 13 Panama Geisha beans—some of our most prized selections.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Geisha / ゲイシャ</div>
+                    <div class="variety-subtitle">The undisputed monarch of specialty coffee</div>
+                    <div class="variety-desc">Born in the forests of Gesha village, Ethiopia, this variety traveled to Panama where it became legend. Delicate jasmine, bergamot, and tropical fruit cascade through every cup. Panama Geisha regularly commands over $1,000 per pound at auction. POPX carries 13 Panama lots — many of them Geisha — because some things are worth the obsession.</div>
+                    <div class="variety-desc">スペシャルティコーヒーの絶対的王者。エチオピア・ゲシャ村の森で生まれ、パナマで伝説となった品種。ジャスミン、ベルガモット、トロピカルフルーツが一杯のなかに幾層にも広がる。パナマ・ゲイシャはオークションで1ポンド1,000ドル超えが常。POPXがパナマ産を13ロット揃えるのは、追いかける価値があるものだから。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">SL-28</div>
-                    <div class="variety-subtitle">East African Classic</div>
-                    <div class="variety-desc">A Scott Labs selection from the 1930s, this Kenyan heirloom brings wine-like acidity and black currant complexity. POPX sources exceptional SL-28 from Ethiopian and Rwandan highlands where altitude amplifies its signature citrus and stone fruit character.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">SL-28 / SL-28</div>
+                    <div class="variety-subtitle">East Africa's gift to the world</div>
+                    <div class="variety-desc">A Scott Laboratories selection from 1930s Kenya — bred for drought resistance, celebrated for its explosive blackcurrant and wine-like acidity. Every sip is a reminder that great coffee has history.</div>
+                    <div class="variety-desc">1930年代ケニアのスコット研究所セレクション。干ばつ耐性のために生まれ、爆発的なブラックカラント感とワインのような酸味で世界を魅了する。東アフリカから世界への贈り物。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Sidra</div>
-                    <div class="variety-subtitle">Colombia's Rising Star</div>
-                    <div class="variety-desc">A hybrid (likely Bourbon × Typica) that dominates specialty competition circuits. Sidra delivers layered complexity: tropical fruit, floral notes, and refined acidity. POPX champions this variety as proof that innovation grows from traditional roots.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Sidra / シドラ</div>
+                    <div class="variety-subtitle">Colombia's rising star</div>
+                    <div class="variety-desc">Suspected Bourbon × Typica hybrid that's taken the competition circuit by storm. Complex, layered, often bursting with tropical fruit and floral elegance. The variety that proves Colombia never stops innovating.</div>
+                    <div class="variety-desc">コロンビアの新星。Bourbon × Typica系と推定されるハイブリッドで、コンペティション界を席巻中。トロピカルフルーツとフローラルな華やかさが幾層にも重なる。コロンビアのイノベーションが止まらない証。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Pacamara</div>
-                    <div class="variety-subtitle">El Salvador's Pride</div>
-                    <div class="variety-desc">Born from a cross of Pacas × Maragogype, this giant-bean variety expresses bold, distinctive flavors. Citrus brightness, chocolate smoothness, and herbal undertones define Pacamara's signature. POPX sources from volcanic slopes where size meets complexity.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Pacamara / パカマラ</div>
+                    <div class="variety-subtitle">El Salvador's bold creation</div>
+                    <div class="variety-desc">A Pacas × Maragogype cross producing oversized beans with equally oversized flavor. Citrus, chocolate, herbal complexity. Big in every sense.</div>
+                    <div class="variety-desc">エルサルバドルの大胆な創造物。Pacas × Maragogypeの交配から生まれた大粒の豆に、大きなフレーバー。シトラス、チョコレート、ハーブの複雑さ。あらゆる意味でビッグ。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Pink Bourbon</div>
-                    <div class="variety-subtitle">Colombia's Delicate Secret</div>
-                    <div class="variety-desc">A mysterious pink-cherry Colombian specialty, this rare cultivar delivers floral elegance and tea-like delicacy. Low yields and finicky growth make Pink Bourbon a collector's treasure—POPX seeks out these gems for discerning palates.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Pink Bourbon / ピンクブルボン</div>
+                    <div class="variety-subtitle">A Colombian mystery wrapped in pink cherries</div>
+                    <div class="variety-desc">Genetically distinct, delicately floral, tea-like in its refinement. The variety that makes you question everything you thought you knew about Bourbon.</div>
+                    <div class="variety-desc">ピンクの実に包まれたコロンビアのミステリー。遺伝的に独自で、繊細なフローラル、紅茶のような品格。ブルボンの常識を覆す品種。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Castillo</div>
-                    <div class="variety-subtitle">Commercial Excellence</div>
-                    <div class="variety-desc">Colombia's workhorse proves that disease resistance need not compromise cup quality. POPX proves Castillo exceptional—bright acidity, clean cup, and terroir expression that elevates the entire category.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Castillo / カスティージョ</div>
+                    <div class="variety-subtitle">Colombia's workhorse variety</div>
+                    <div class="variety-desc">Disease-resistant, high-yielding, often dismissed by snobs. POPX disagrees. In the right hands, Castillo produces stunning cups that prove "commercial" is a lazy label.</div>
+                    <div class="variety-desc">コロンビアの主力品種。耐病性・多収量ゆえにスノッブには軽視されがち。POPXは同意しない。正しい手にかかれば、カスティージョは「コマーシャル」というレッテルが怠惰だと証明するカップを生む。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Caturra Mejorado</div>
-                    <div class="variety-subtitle">Improved Innovation</div>
-                    <div class="variety-desc">Centro Nacional de Investigaciones de Café's improved Caturra selection combines compact trees with bright acidity. POPX sources from Central American highlands where this cultivar truly shines.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Caturra Mejorado / カトゥーラ・メホラード</div>
+                    <div class="variety-subtitle">The "improved Caturra"</div>
+                    <div class="variety-desc">Developed by Colombia's national coffee research center. Compact trees that punch above their weight with bright, clean acidity.</div>
+                    <div class="variety-desc">「改良型カトゥーラ」。コロンビア国立コーヒー研究センター開発。コンパクトな樹形から、明るくクリーンな酸味が力強く立ち上がる。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Java</div>
-                    <div class="variety-subtitle">Indonesian Heritage</div>
-                    <div class="variety-desc">Brought from Yemen centuries ago, Java represents Indonesian coffee heritage. Full body, earthy sweetness, and subtle spice notes make Java perfect for traditional brewing methods and creative blends.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Java / ジャワ</div>
+                    <div class="variety-subtitle">Indonesian heritage variety</div>
+                    <div class="variety-desc">Carried from Yemen centuries ago. Full-bodied, earthy-sweet, a living connection to coffee's ancient trade routes.</div>
+                    <div class="variety-desc">何世紀も前にイエメンから運ばれたインドネシアのヘリテージ品種。フルボディ、アーシーで甘い。コーヒーの古代交易路との生きたつながり。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">74158 / Kurume</div>
-                    <div class="variety-subtitle">Ethiopian Wildness</div>
-                    <div class="variety-desc">A disease-resistant Arabica selection from Jimma Agricultural Research Center, this variety retains the wild character of Ethiopian genetics. Floral complexity, bright fruit, and untamed personality make each cup an adventure.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">74158 / Kurume / 74158 / クルメ</div>
+                    <div class="variety-subtitle">Ethiopia's Jimma selection</div>
+                    <div class="variety-desc">Ethiopia's Jimma Agricultural Research Center selection — disease-resistant Arabica with untamed, wild character. Science meets the jungle.</div>
+                    <div class="variety-desc">エチオピア・ジマ農業研究センターのセレクション。耐病性アラビカでありながら、野性的なキャラクター。科学とジャングルの出会い。</div>
                 </div>
 
-                <div class="variety-card">
-                    <div class="variety-name">Purple Caturra / Bourbon</div>
-                    <div class="variety-subtitle">Rare Mutations</div>
-                    <div class="variety-desc">Visual stunners with purple cherries and equally unique flavor profiles. These rare mutations deliver unexpected complexity—POPX actively hunts purple varieties as conversation starters and taste revelations.</div>
+                <div class="variety-card fade-in-scroll">
+                    <div class="variety-name">Purple Caturra / Bourbon / パープルカトゥーラ・ブルボン</div>
+                    <div class="variety-subtitle">Rare genetic mutations</div>
+                    <div class="variety-desc">Producing purple-skinned cherries. Visual stunners in the field, unique flavor profiles in the cup. Nature's art.</div>
+                    <div class="variety-desc">紫色のチェリーを実らせるレアな遺伝変異。農園では目を引く美しさ、カップでは唯一無二のフレーバー。自然のアート。</div>
                 </div>
             </div>
         </div>
@@ -797,283 +885,302 @@
         <div id="process" class="tab-content">
             <div class="process-grid">
                 <!-- NATURAL FAMILY -->
-                <div class="process-family">
-                    <div class="process-family-title">Natural Family</div>
+                <div class="process-family fade-in-scroll">
+                    <div class="process-family-title">Natural ナチュラル系</div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Natural
+                            Natural / ナチュラル
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">The traditional method: whole cherry dried intact. Result: fruity, funky, full-bodied cup with wild fermentation character.</div>
+                        <div class="process-desc">The oldest method — cherries dried whole under the sun. Fruity, full-bodied, sometimes funky. Simplicity that rewards patience.</div>
+                        <div class="process-desc-jp">最古の精製法。チェリーをまるごと天日乾燥。フルーティ、フルボディ、時にファンキー。忍耐が報われるシンプルさ。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Anaerobic Natural
+                            Anaerobic Natural / アナエロビック・ナチュラル
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Sealed oxygen-free fermentation before drying. Creates intense, exotic flavors through controlled anaerobic conditions.</div>
+                        <div class="process-desc">Sealed in oxygen-free tanks before drying. Controlled chaos — intense, exotic flavors emerge from darkness.</div>
+                        <div class="process-desc-jp">乾燥前に無酸素タンクで密封。制御されたカオス — 暗闇から強烈でエキゾチックなフレーバーが現れる。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            240hr Anaerobic Natural
+                            240hr Anaerobic Natural / 240時間アナエロビック・ナチュラル
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Extreme 10-day anaerobic fermentation. Wine-like complexity, wild fruit esters, and experimental edge—not for the faint of palate.</div>
+                        <div class="process-desc">Ten days sealed in anaerobic fermentation. Extreme patience for extreme reward — wine-like, deeply complex, unforgettable.</div>
+                        <div class="process-desc-jp">10日間の嫌気発酵。極限の忍耐が極限の報酬を生む — ワインのよう、深い複雑さ、忘れられない味。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            96hr Anaerobic + Mosto
+                            96hr Anaerobic + Mosto / 96時間モスト・アナエロビック
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Fermented in coffee fruit juice (mosto). Layers of tropical fruit, fermented sweetness, and unprecedented complexity.</div>
+                        <div class="process-desc">Fermented in coffee fruit juice (mosto) for 96 hours. Layer upon layer of sweetness and complexity.</div>
+                        <div class="process-desc-jp">コーヒーチェリーの果汁（モスト）で96時間発酵。甘さと複雑さが幾層にも重なる。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Yeast Inoculated Natural
+                            Yeast Inoculated Natural / 酵母接種ナチュラル
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Selected yeast strains guide fermentation like wine-making. Precision controlled wild fermentation with predictable excellence.</div>
+                        <div class="process-desc">Selected yeast strains guide fermentation — winemaking meets coffee. Precision-engineered wild character.</div>
+                        <div class="process-desc-jp">選定された酵母が発酵をガイド。ワイン醸造とコーヒーの融合。精密に設計されたワイルドさ。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Whole Cherry Anaerobic + Mosto
+                            Whole Cherry Anaerobic + Mosto / チェリーまるごとモスト・アナエロビック
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Entire cherry soaked in mosto in sealed anaerobic conditions. Ultra-experimental with unlimited fermentation possibilities.</div>
+                        <div class="process-desc">Entire cherries submerged in mosto for anaerobic fermentation. Ultra-experimental, boundary-pushing.</div>
+                        <div class="process-desc-jp">チェリーごとモストに沈めて嫌気発酵。超実験的、限界を押し広げる。</div>
                     </div>
                 </div>
 
                 <!-- WASHED FAMILY -->
-                <div class="process-family">
-                    <div class="process-family-title">Washed Family</div>
+                <div class="process-family fade-in-scroll">
+                    <div class="process-family-title">Washed ウォッシュド系</div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Classic Washed
+                            Classic Washed / クラシック・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Pulp removed, fermented, then washed clean. Terroir forward, clean cup—the "honest" process that lets origin speak.</div>
+                        <div class="process-desc">Fruit removed, beans washed clean. The "honest" process — terroir speaks loudest when nothing hides it.</div>
+                        <div class="process-desc-jp">果肉を除去し、豆を洗い清める。「正直な」精製法 — テロワールは何も隠さない時に最も雄弁になる。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Anaerobic Washed
+                            Anaerobic Washed / アナエロビック・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Anaerobic fermentation phase followed by thorough washing. Clean cup with fermented complexity underneath.</div>
+                        <div class="process-desc">Anaerobic fermentation followed by washing. Best of both worlds — complexity with clarity.</div>
+                        <div class="process-desc-jp">嫌気発酵後にウォッシング。両方の良いとこ取り — クリアさと複雑さの共存。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Double Anaerobic Washed
+                            Double Anaerobic Washed / ダブル・アナエロビック・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Two-stage anaerobic fermentation before washing. Layered complexity with clean presentation.</div>
+                        <div class="process-desc">Two-stage anaerobic fermentation before washing. Double the fermentation, double the depth.</div>
+                        <div class="process-desc-jp">ウォッシング前に2段階の嫌気発酵。発酵を2倍にすれば、深みも2倍。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Thermal Shock Washed
+                            Thermal Shock Washed / サーマルショック・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Hot/cold temperature cycling during fermentation. Cellular stress creates unique flavor compounds.</div>
+                        <div class="process-desc">Hot-cold temperature cycling during fermentation. Thermal stress unlocks hidden flavor compounds.</div>
+                        <div class="process-desc-jp">発酵中に温冷サイクルを繰り返す。温度ストレスが隠されたフレーバー成分を解き放つ。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Double Anaerobic Thermal Shock
+                            Double Anaerobic Thermal Shock / ダブル・アナエロビック・サーマルショック
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Combines double anaerobic fermentation with thermal shock. Ultra-complex with competing flavor profiles.</div>
+                        <div class="process-desc">The full arsenal — double anaerobic plus thermal shock. Ultra-complex, for those who believe more is more.</div>
+                        <div class="process-desc-jp">フルアーセナル — ダブル・アナエロビック + サーマルショック。「もっと」を信じる者のための超複雑精製。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Carbonic Macerated, Washed
+                            Carbonic Macerated, Washed / カーボニック・マセレーション・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Wine-inspired CO2 maceration of whole cherries. Intracellular fermentation before washing. Fruit bomb potential.</div>
+                        <div class="process-desc">Wine-inspired CO₂ maceration applied to coffee. Borrowed brilliance from another industry.</div>
+                        <div class="process-desc-jp">ワイン由来のCO₂マセレーションをコーヒーに応用。異業種からの借り物の天才性。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Hybrid Washed / Co-ferment
+                            Hybrid Washed / Co-ferment / ハイブリッド・ウォッシュド
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Extended fermentation windows with mixed mucilage levels. Balanced complexity with clean finish.</div>
+                        <div class="process-desc">Extended fermentation windows — 72 to 190 hours. Time is the secret ingredient.</div>
+                        <div class="process-desc-jp">72〜190時間の長時間発酵。時間こそ秘密のイングレディエント。</div>
                     </div>
                 </div>
 
                 <!-- HONEY & SPECIAL -->
-                <div class="process-family">
-                    <div class="process-family-title">Honey & Special Processes</div>
+                <div class="process-family fade-in-scroll">
+                    <div class="process-family-title">Honey & Special ハニー＆スペシャル</div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Honey / Pulped Natural
+                            Honey / ハニー
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Mucilage left on during drying. Sweet, balanced body—the Goldilocks of coffee processing.</div>
+                        <div class="process-desc">Mucilage left on during drying. Sweet, balanced, the golden middle ground between natural and washed.</div>
+                        <div class="process-desc-jp">ミューシレージを残したまま乾燥。甘く、バランス良く、ナチュラルとウォッシュドの黄金の中間地点。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Honey Lactic
+                            Honey Lactic / ハニー・ラクティック
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Honey process with lactic acid bacteria fermentation. Creamy mouthfeel, yogurt-like brightness, dairy-free smoothness.</div>
+                        <div class="process-desc">Honey process with lactic acid bacteria. Creamy, yogurt-like softness meets honey sweetness.</div>
+                        <div class="process-desc-jp">ハニー精製に乳酸菌をプラス。クリーミーでヨーグルトのような柔らかさとハニーの甘さの出会い。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Vanilla Process
+                            Vanilla Process / バニラ・プロセス
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
                             </div>
                         </div>
-                        <div class="process-desc">Co-fermented with vanilla. POPX's most exotic offering—vanilla aromatics meet coffee complexity in harmony.</div>
+                        <div class="process-desc">Co-fermented with vanilla. POPX's most exotic find — dessert in a cup.</div>
+                        <div class="process-desc-jp">バニラと共発酵。POPXの最もエキゾチックな発見 — カップの中のデザート。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Swiss Water Decaf
+                            Lactic / ラクティック
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Chemical-free water-based decaffeination. 99.9% caffeine removed while preserving flavor integrity.</div>
+                        <div class="process-desc">Controlled lactic acid fermentation. Smooth, creamy, with a gentle acidity that lingers.</div>
+                        <div class="process-desc-jp">乳酸発酵をコントロール。スムーズでクリーミー、優しい酸味が余韻として残る。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            EA (Ethyl Acetate) Decaf
+                            Swiss Water Decaf / スイスウォーター・デカフ
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Natural decaffeination from sugarcane. Clean, gentle method preserving more origin character than alternatives.</div>
+                        <div class="process-desc">Chemical-free decaffeination using pure water. All the flavor, none of the buzz.</div>
+                        <div class="process-desc-jp">純水のみを使ったケミカルフリーのカフェイン除去。フレーバーはそのまま、カフェインだけを除く。</div>
                     </div>
 
                     <div class="process-item">
                         <div class="process-name">
-                            Lactic Fermentation
+                            EA Decaf / EA デカフ
                             <div class="process-stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star empty">★</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star">●</span>
+                                <span class="star empty">○</span>
+                                <span class="star empty">○</span>
                             </div>
                         </div>
-                        <div class="process-desc">Controlled lactic acid bacteria fermentation. Smooth, creamy cup with yogurt undertones and natural sweetness.</div>
+                        <div class="process-desc">Ethyl Acetate from sugarcane — nature's own decaffeination agent. Sweet, clean, guilt-free late-night cups.</div>
+                        <div class="process-desc-jp">サトウキビ由来の酢酸エチルによるデカフ。ナチュラルな甘さ、クリーン。夜のコーヒーに罪悪感なし。</div>
                     </div>
                 </div>
             </div>
@@ -1082,63 +1189,72 @@
         <!-- ORIGINS TAB -->
         <div id="origins" class="tab-content">
             <div class="origins-grid">
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Colombia</div>
                     <div class="origin-bean-count">16 beans</div>
-                    <div class="origin-desc">POPX's largest source. Huila, Nariño, and Cauca regions offer infinite microclimates and terroir expressions. Home of Sidra, Pink Bourbon, and Castillo innovations. Colombian coffee represents the future of specialty cultivation.</div>
+                    <div class="origin-desc">POPX's primary source. Huila, Nariño, Cauca — three regions, infinite possibilities. Home to Sidra, Pink Bourbon, Castillo, and a relentless drive toward processing innovation. Colombia doesn't just grow coffee; it reinvents it.</div>
+                    <div class="origin-desc-jp">POPXのメインソース。ウイラ、ナリーニョ、カウカ — 3つの地域、無限の可能性。シドラ、ピンクブルボン、カスティージョの故郷であり、精製イノベーションへの飽くなき探求の地。コロンビアはコーヒーを栽培するだけでなく、再発明する。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Panama</div>
                     <div class="origin-bean-count">13 beans</div>
-                    <div class="origin-desc">The Geisha homeland and world's most expensive coffee origin. Boquete highlands and Volcán Barú slopes create cool, volcanic terroir. Panama represents luxury and legendary flavor—POPX's premium selection hub.</div>
+                    <div class="origin-desc">The promised land of Geisha. Boquete and Volcán Barú's cool highlands produce coffees that routinely break auction records. Volcanic soil, Pacific mist, and an altitude that makes beans work harder for every ounce of sweetness.</div>
+                    <div class="origin-desc-jp">ゲイシャの約束の地。ボケテとバルー火山の冷涼な高地は、オークション記録を塗り替え続けるコーヒーを生む。火山性の土壌、太平洋の霧、そして甘さの一滴一滴のために豆を鍛える標高。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Ethiopia</div>
                     <div class="origin-bean-count">12 beans</div>
-                    <div class="origin-desc">Coffee's birthplace and genetic treasure house. Yirgacheffe, Sidama, and Guji regions express wild heirloom varieties with floral, fruity DNA. Every Ethiopian bean tells ancestral stories.</div>
+                    <div class="origin-desc">Where it all began. Yirgacheffe, Sidama, Guji — names that read like poetry. Wild heirloom varieties, ancient forests, floral-fruity DNA written into every bean. To drink Ethiopian coffee is to taste history.</div>
+                    <div class="origin-desc-jp">すべてはここから始まった。イルガチェフェ、シダマ、グジ — 詩のように響く名前たち。野生のエアルーム品種、古代の森、すべての豆に刻まれたフローラル・フルーティのDNA。エチオピアのコーヒーを飲むことは、歴史を味わうこと。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Guatemala</div>
                     <div class="origin-bean-count">2 beans</div>
-                    <div class="origin-desc">Volcanic highlands of Antigua and Huehuetenango. Chocolate, spice, and balanced acidity define Guatemalan character. High altitude amplifies complexity and body.</div>
+                    <div class="origin-desc">Volcanic highlands where chocolate meets spice. Antigua and Huehuetenango produce balanced, complex cups with old-world character.</div>
+                    <div class="origin-desc-jp">チョコレートとスパイスが出会う火山高地。アンティグアとウエウエテナンゴが生む、旧世界のキャラクターを持つバランスの取れた複雑なカップ。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Costa Rica</div>
                     <div class="origin-bean-count">1 bean</div>
-                    <div class="origin-desc">Tarrazú and Central Valley's micro-mill revolution. Costa Rican coffee means clean, bright innovation. Progressive processing techniques meet traditional cultivation.</div>
+                    <div class="origin-desc">The micro-mill revolution started here. Clean, bright, innovative processing in Tarrazú and Central Valley.</div>
+                    <div class="origin-desc-jp">マイクロミル革命の発祥地。タラス、セントラルバレーでクリーン、ブライト、革新的な精製。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Peru</div>
                     <div class="origin-bean-count">1 bean</div>
-                    <div class="origin-desc">Emerging specialty origin. Cajamarca and Junín highlands. Organic by tradition with sustainable cultivation practices. Peruvian coffee represents untapped potential.</div>
+                    <div class="origin-desc">Emerging specialty origin. Organic by tradition, gaining recognition bean by bean.</div>
+                    <div class="origin-desc-jp">新興スペシャルティ産地。伝統的にオーガニック、一豆一豆で認知を獲得中。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">El Salvador</div>
                     <div class="origin-bean-count">1 bean</div>
-                    <div class="origin-desc">Pacamara homeland and volcanic innovation center. Santa Ana volcano slopes produce big beans with bold flavors. El Salvador punches above its size in specialty coffee.</div>
+                    <div class="origin-desc">Pacamara's homeland. Santa Ana volcano slopes growing big beans with bold ambitions.</div>
+                    <div class="origin-desc-jp">パカマラの故郷。サンタアナ火山の斜面で、大きな野望を持つ大粒の豆が育つ。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Rwanda</div>
                     <div class="origin-bean-count">1 bean</div>
-                    <div class="origin-desc">"Land of a Thousand Hills" with Bourbon varieties and bright acidity. Tea-like delicacy meets fruity complexity. Rwanda represents African quality evolution.</div>
+                    <div class="origin-desc">"Land of a Thousand Hills." Bourbon varieties, bright acidity, tea-like elegance at altitude.</div>
+                    <div class="origin-desc-jp">「千の丘の国」。ブルボン品種、明るい酸味、高標高の紅茶のようなエレガンス。</div>
                 </div>
 
-                <div class="origin-card">
+                <div class="origin-card fade-in-scroll">
                     <div class="origin-name">Brazil / Mexico</div>
                     <div class="origin-bean-count">1 bean</div>
-                    <div class="origin-desc">Decaf blend sourcing. Brazil: world's largest producer with full-bodied character. Mexico: Chiapas highlands offering clean, bright profiles. Decaf excellence proves all coffees deserve excellence.</div>
+                    <div class="origin-desc">Decaf blend pairing the world's largest producer with Chiapas highlands. Proving decaf can have character.</div>
+                    <div class="origin-desc-jp">世界最大の生産国とチアパス高地のデカフブレンド。デカフにも個性があることの証明。</div>
                 </div>
             </div>
 
-            <div class="origin-bar-chart">
-                <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1.3rem; color: var(--cyan); margin-bottom: 2rem;">POPX Bean Distribution by Origin</h3>
+            <div class="origin-bar-chart fade-in-scroll">
+                <div class="chart-title">POPX Bean Distribution by Origin / 産地別豆の分布</div>
 
                 <div class="chart-item">
                     <div class="chart-label">Colombia</div>
@@ -1217,46 +1333,53 @@
         <!-- ROASTERS TAB -->
         <div id="roasters" class="tab-content">
             <div class="roasters-grid">
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">TRUNK COFFEE</div>
                     <div class="roaster-location">Nagoya, Japan</div>
-                    <div class="roaster-desc">Tokyo's specialty coffee institution bringing Scandinavian precision to Japanese aesthetics. TRUNK roasts with mathematical precision—each bean receives exactly the heat it deserves. Perfect for POPX's data-driven approach to coffee excellence.</div>
+                    <div class="roaster-desc">Nagoya's specialty coffee pioneer. Meticulous sourcing meets bold roasting — a bridge between Scandinavian light roast philosophy and Japanese precision.</div>
+                    <div class="roaster-desc-jp">名古屋のスペシャルティコーヒーのパイオニア。緻密な仕入れと大胆な焙煎。北欧の浅煎り哲学と日本の精密さの架け橋。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">Hydrangea Coffee</div>
                     <div class="roaster-location">Japan</div>
-                    <div class="roaster-desc">Artisanal roaster balancing tradition with innovation. Hydrangea understands that roasting is dialogue with the bean. Their light, medium profiles highlight origin character—POPX's preferred partner for terroir expression.</div>
+                    <div class="roaster-desc">Named for the hydrangea flower — beautiful, layered, seasonal. Their roasts capture the same fleeting perfection.</div>
+                    <div class="roaster-desc-jp">あじさいの名を冠する。美しく、重層的で、季節を映す。彼らの焙煎も同じ儚い完璧さを捉える。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">Coffee Collective</div>
                     <div class="roaster-location">Copenhagen, Denmark</div>
-                    <div class="roaster-desc">Scandinavian specialty coffee legends. Coffee Collective champions transparency, quality, and direct relationships. Their roasts set global standards—POPX partners with them for international benchmark excellence.</div>
+                    <div class="roaster-desc">Copenhagen's quality obsession. Direct trade pioneers, Nordic roasting legends. Every bean tells a story of relationship and respect.</div>
+                    <div class="roaster-desc-jp">コペンハーゲンの品質への執念。ダイレクトトレードの先駆者、北欧焙煎のレジェンド。すべての豆が関係性とリスペクトの物語を語る。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">Rose Coffee</div>
                     <div class="roaster-location">Japan</div>
-                    <div class="roaster-desc">Feminine artistry meets coffee science. Rose Coffee treats each bean as canvas for creative expression. Their medium roasts reveal hidden florals and fruit—POPX's partner for nuanced, creative roasting.</div>
+                    <div class="roaster-desc">Elegant as its name. Rose approaches coffee the way a sommelier approaches wine — with reverence and curiosity.</div>
+                    <div class="roaster-desc-jp">その名の通りエレガント。ローズはソムリエがワインに向き合うようにコーヒーに向き合う — 敬意と好奇心を持って。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">Hatch Coffee</div>
                     <div class="roaster-location">Japan</div>
-                    <div class="roaster-desc">Passionate specialty roaster with commitment to single-origin expression. Hatch roasts small batches with meticulous attention. Their consistency and quality make them essential POPX partners.</div>
+                    <div class="roaster-desc">Fresh perspectives from a roaster that isn't afraid to experiment. Hatch brings energy and edge to the Japanese specialty scene.</div>
+                    <div class="roaster-desc-jp">実験を恐れないロースターからのフレッシュな視点。ハッチは日本のスペシャルティシーンにエナジーとエッジをもたらす。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">IOLITE COFFEE ROASTERS</div>
                     <div class="roaster-location">Japan</div>
-                    <div class="roaster-desc">Crystal-like clarity in every roast. IOLITE brings mineralogical precision to coffee roasting. Their profiles are clean, bright, and transparent—POPX loves their scientific approach to artisan roasting.</div>
+                    <div class="roaster-desc">Named after the Viking navigation stone. IOLITE finds direction in the vast ocean of specialty coffee, guiding drinkers to undiscovered territories.</div>
+                    <div class="roaster-desc-jp">バイキングの航海石にちなんだ名。アイオライトはスペシャルティコーヒーの大海原で方角を見つけ、未知の領域へ導く。</div>
                 </div>
 
-                <div class="roaster-card">
+                <div class="roaster-card fade-in-scroll">
                     <div class="roaster-name">Tanat Coffee</div>
                     <div class="roaster-location">Japan</div>
-                    <div class="roaster-desc">Bold, expressive roasting philosophy. Tanat doesn't shy from darker profiles that still maintain complexity. They prove that bold roasting and quality aren't mutually exclusive—POPX's partner for adventurous palates.</div>
+                    <div class="roaster-desc">Quiet excellence. Tanat lets the beans speak — minimal intervention roasting that reveals origin character.</div>
+                    <div class="roaster-desc-jp">静かなる卓越。タナットは豆に語らせる — 産地のキャラクターを引き出すミニマル・インターベンション焙煎。</div>
                 </div>
             </div>
         </div>
@@ -1264,139 +1387,160 @@
         <!-- GLOSSARY TAB -->
         <div id="glossary" class="tab-content">
             <div class="glossary-grid">
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">SCA Score</div>
-                    <div class="glossary-def">Specialty Coffee Association cupping scale (0-100). Scores of 80+ are "specialty" grade. POPX targets 85+ for all single-origins.</div>
+                    <div class="glossary-def">Specialty Coffee Association score (80+ = specialty grade).</div>
+                    <div class="glossary-def-jp">SCA（スペシャルティコーヒー協会）スコア。80点以上がスペシャルティグレード。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Q Grader</div>
-                    <div class="glossary-def">SCA-certified professional taster. Undergoes rigorous training in sensory evaluation. POPX trusts Q Grader certifications for quality assessment.</div>
+                    <div class="glossary-def">Licensed professional coffee taster with international certification.</div>
+                    <div class="glossary-def-jp">国際資格を持つプロのコーヒー鑑定士。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Cupping</div>
-                    <div class="glossary-def">Standardized tasting protocol. Grounds steeped 4 minutes, then slurped loudly to spray palate. Allows objective flavor comparison across coffees.</div>
+                    <div class="glossary-def">Standardized coffee evaluation method used globally.</div>
+                    <div class="glossary-def-jp">標準化されたコーヒー評価法。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Body</div>
-                    <div class="glossary-def">Mouthfeel weight—how "heavy" or "light" coffee feels. From light tea-like to heavy syrupy. Determined by processing and roast.</div>
+                    <div class="glossary-def">Weight and texture of coffee in the mouth.</div>
+                    <div class="glossary-def-jp">コーヒーの口中での重さとテクスチャー。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Acidity</div>
-                    <div class="glossary-def">Bright, tangy sensation (not sour). Creates liveliness and complexity. Altitude and variety heavily influence acidity profiles.</div>
+                    <div class="glossary-def">Brightness and liveliness in flavor (not sourness).</div>
+                    <div class="glossary-def-jp">フレーバーの明るさと活気。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Sweetness</div>
-                    <div class="glossary-def">Residual sugars and pleasant flavor complexity. Well-developed sweetness is mark of quality—often fruit-like or caramel-like.</div>
+                    <div class="glossary-def">Natural sugars perceived in the cup.</div>
+                    <div class="glossary-def-jp">カップで感じる天然の甘さ。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Aftertaste</div>
-                    <div class="glossary-def">Lingering flavor after swallowing. Long, complex aftertaste indicates quality and balance. Should be pleasant, never bitter.</div>
+                    <div class="glossary-def">Flavors remaining after swallowing.</div>
+                    <div class="glossary-def-jp">飲み込んだ後に残るフレーバー。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Mouthfeel</div>
-                    <div class="glossary-def">Textural sensation in mouth—creamy, smooth, velvety, dry, etc. Key component of overall coffee experience.</div>
+                    <div class="glossary-def">Physical sensation of coffee in the mouth.</div>
+                    <div class="glossary-def-jp">コーヒーの口中での物理的感覚。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Terroir</div>
-                    <div class="glossary-def">French concept: soil, climate, altitude, culture combine to create unique flavor expression. Coffee terroir is as complex as wine.</div>
+                    <div class="glossary-def">Environmental factors affecting flavor (soil, climate, altitude).</div>
+                    <div class="glossary-def-jp">フレーバーに影響する環境要因。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Microclimate</div>
-                    <div class="glossary-def">Specific local climate within larger region. Elevation changes of 100m can create distinct flavor profiles in same origin.</div>
+                    <div class="glossary-def">Localized climate conditions affecting growth.</div>
+                    <div class="glossary-def-jp">成長に影響する局所的な気候条件。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Altitude</div>
-                    <div class="glossary-def">Elevation of farm (meters above sea level). Higher altitude = slower ripening = more complex sugars = better specialty coffee (usually 1500m+).</div>
+                    <div class="glossary-def">Elevation of coffee cultivation (higher = denser beans).</div>
+                    <div class="glossary-def-jp">栽培標高。高い＝高密度で複雑。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Fermentation</div>
-                    <div class="glossary-def">Microbial breakdown of sugars and pectin during processing. Creates flavor complexity. Can be wild or controlled (anaerobic).</div>
+                    <div class="glossary-def">Microbial breakdown of mucilage creating flavor.</div>
+                    <div class="glossary-def-jp">微生物によるミューシレージの分解。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Mucilage</div>
-                    <div class="glossary-def">Sticky fruit layer between skin and parchment. Removed in washed process, kept in honey/natural processes. Affects sweetness and body.</div>
+                    <div class="glossary-def">Sticky fruit layer surrounding the bean.</div>
+                    <div class="glossary-def-jp">豆を囲む粘着性の果肉層。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Parchment</div>
-                    <div class="glossary-def">Protective layer between mucilage and bean. Removed in milling. Coffee is shipped as "green beans" in parchment.</div>
+                    <div class="glossary-def">Protective hull around the green bean.</div>
+                    <div class="glossary-def-jp">生豆を覆う保護殻。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Green Bean</div>
-                    <div class="glossary-def">Unroasted coffee seed. Usually gray-green color. Raw state before roasting develops flavors.</div>
+                    <div class="glossary-def">Unroasted coffee bean before roasting.</div>
+                    <div class="glossary-def-jp">焙煎前のコーヒー豆。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Roast Profile</div>
-                    <div class="glossary-def">Temperature curve during roasting. Light/Medium/Dark roasts refer to development time and resulting color/flavor intensity.</div>
+                    <div class="glossary-def">Temperature curve during roasting process.</div>
+                    <div class="glossary-def-jp">焙煎中の温度カーブ。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">First Crack</div>
-                    <div class="glossary-def">Audible pop when coffee hits ~200°C. Water escapes, beans expand. Marks transition from light to medium roasts.</div>
+                    <div class="glossary-def">Audible pop signaling light roast stage (~200°C).</div>
+                    <div class="glossary-def-jp">浅煎り段階を示すパチッという音。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Second Crack</div>
-                    <div class="glossary-def">Second audible pop at ~225°C. Cell walls break further. Marks transition to dark roasts. Beyond this point, bitter compounds increase.</div>
+                    <div class="glossary-def">Deeper crack signaling dark roast territory (~225°C).</div>
+                    <div class="glossary-def-jp">深煎り領域を示すより深い音。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Degassing</div>
-                    <div class="glossary-def">Release of CO2 after roasting (1-5 days typical). Freshly roasted coffee is not ideal for espresso immediately—needs to rest.</div>
+                    <div class="glossary-def">CO₂ release from freshly roasted beans (1-5 days).</div>
+                    <div class="glossary-def-jp">焙煎直後の豆からのCO₂放出。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Extraction</div>
-                    <div class="glossary-def">Process of dissolving soluble coffee compounds into water. Optimal extraction ~18-22% of dry bean weight. Determines strength and flavor.</div>
+                    <div class="glossary-def">Dissolving soluble compounds from grounds into water.</div>
+                    <div class="glossary-def-jp">挽き豆から可溶性成分を溶出すること。</div>
                 </div>
 
-                <div class="glossary-item">
-                    <div class="glossary-term">TDS (Total Dissolved Solids)</div>
-                    <div class="glossary-def">Percentage of dissolved coffee in water (measured with refractometer). 1.2-1.5% indicates espresso; 1.15-1.35% for pour-over.</div>
+                <div class="glossary-item fade-in-scroll">
+                    <div class="glossary-term">TDS</div>
+                    <div class="glossary-def">Total Dissolved Solids — concentration measure.</div>
+                    <div class="glossary-def-jp">総溶解固形分。濃度の指標。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Bloom</div>
-                    <div class="glossary-def">First step of brewing: hot water poured over grounds causing them to "bloom" (swell from CO2 release). 30-45 seconds typical.</div>
+                    <div class="glossary-def">Initial pour releasing CO₂ from fresh grounds.</div>
+                    <div class="glossary-def-jp">フレッシュな挽き豆からCO₂を放出する最初の注湯。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Pour Over</div>
-                    <div class="glossary-def">Manual brewing method pouring hot water through grounds in cone/dripper. V60, Chemex, Melitta popular styles. 3-4 minute brew.</div>
+                    <div class="glossary-def">Manual brewing with controlled water pour.</div>
+                    <div class="glossary-def-jp">コントロールされた注湯による手動抽出。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">V60</div>
-                    <div class="glossary-def">Japanese pour-over dripper with spiral ridges. Shallow angle design emphasizes pour control and flavor clarity.</div>
+                    <div class="glossary-def">Hario's conical dripper — the barista's weapon of choice.</div>
+                    <div class="glossary-def-jp">ハリオの円錐ドリッパー。バリスタの武器。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Aeropress</div>
-                    <div class="glossary-def">Immersion brewing: grounds steeped 1-2 minutes then pressed through micro-filter. Creates rich cup with clarity.</div>
+                    <div class="glossary-def">Pressure-based portable brewer for rich extraction.</div>
+                    <div class="glossary-def-jp">圧力を利用した携帯型ブリューワー。</div>
                 </div>
 
-                <div class="glossary-item">
+                <div class="glossary-item fade-in-scroll">
                     <div class="glossary-term">Cold Brew</div>
-                    <div class="glossary-def">Long immersion (12-24 hours) in cold water. Creates smooth, sweet concentrate with lower acidity and caffeine clarity.</div>
-                </div>
-
-                <div class="glossary-item">
-                    <div class="glossary-term">Espresso</div>
-                    <div class="glossary-def">Pressurized extraction (9+ bars). Finely ground coffee, hot water forced through at high pressure. Creates concentrated shot.</div>
+                    <div class="glossary-def">Long steep in cold water — smooth, low acidity.</div>
+                    <div class="glossary-def-jp">冷水で長時間抽出。スムーズで低酸味。</div>
                 </div>
             </div>
         </div>
@@ -1405,8 +1549,8 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-text">© 2025 POPX Inc. — Specialty Coffee × Character IP</div>
-        <div class="footer-text">Crafting the future of coffee with artistry and science</div>
-        <div class="footer-credit">Built with ☕ and creativity</div>
+        <div class="footer-credit">Coffee Wiki built with precision and passion</div>
+        <div class="footer-credit"><a href="https://popx-inc.com" style="color: inherit; text-decoration: none;">popx-inc.com</a></div>
     </footer>
 
     <script>
@@ -1430,8 +1574,8 @@
 
         // SCROLL ANIMATIONS
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1442,20 +1586,10 @@
             });
         }, observerOptions);
 
-        // Add fade-in-scroll class to cards
-        document.querySelectorAll('.variety-card, .origin-card, .roaster-card, .process-family').forEach(el => {
-            el.classList.add('fade-in-scroll');
+        // Add fade-in-scroll class to elements
+        document.querySelectorAll('.fade-in-scroll').forEach(el => {
             observer.observe(el);
         });
-
-        // MOBILE MENU
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                // Toggle mobile menu (can expand with actual menu structure later)
-                alert('Mobile menu - consider adding more navigation here');
-            });
-        }
 
         // SMOOTH SCROLL FOR ANCHOR LINKS
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
