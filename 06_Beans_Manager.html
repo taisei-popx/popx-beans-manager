@@ -1478,6 +1478,9 @@
                 <option value="price-low">価格: 低い順</option>
                 <option value="price-high">価格: 高い順</option>
                 <option value="origin">出身国でソート</option>
+                <option value="roaster">ロースターでソート</option>
+                <option value="freshness-peak">飲み頃: 近い順</option>
+                <option value="freshness-urgent">飲み頃: 急ぎ順</option>
                 <option value="date-new">購入日: 新しい順</option>
                 <option value="date-old">購入日: 古い順</option>
             </select>
@@ -1606,19 +1609,15 @@
                             <table class="analytics-table" id="cafe-pricing-table">
                                 <thead>
                                     <tr>
-                                        <th rowspan="2" style="vertical-align:middle;">豆</th>
-                                        <th rowspan="2" style="vertical-align:middle;">ロースター</th>
-                                        <th colspan="3" style="text-align:center; background:rgba(255,107,107,0.08); color:#e74c3c; font-size:11px; letter-spacing:1px; border-bottom:2px solid rgba(255,107,107,0.2);">原価</th>
-                                        <th rowspan="2" style="vertical-align:middle;">希少性</th>
-                                        <th colspan="2" style="text-align:center; background:rgba(36,54,104,0.06); color:var(--color-navy); font-size:11px; letter-spacing:1px; border-bottom:2px solid rgba(36,54,104,0.15);">売値</th>
-                                        <th rowspan="2" style="vertical-align:middle;">粗利率</th>
-                                    </tr>
-                                    <tr>
-                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1袋</th>
-                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1杯 (10g)</th>
-                                        <th style="background:rgba(255,107,107,0.04); font-size:11px;">1杯 (15g)</th>
-                                        <th style="background:rgba(36,54,104,0.03); font-size:11px;">1杯 (10g)</th>
-                                        <th style="background:rgba(36,54,104,0.03); font-size:11px;">1杯 (15g)</th>
+                                        <th>豆</th>
+                                        <th>ロースター</th>
+                                        <th>1袋<br><span style="font-size:9px;font-weight:400;opacity:0.7;">原価</span></th>
+                                        <th>1杯 (10g)<br><span style="font-size:9px;font-weight:400;opacity:0.7;">原価</span></th>
+                                        <th>1杯 (15g)<br><span style="font-size:9px;font-weight:400;opacity:0.7;">原価</span></th>
+                                        <th>希少性</th>
+                                        <th>1杯 (10g)<br><span style="font-size:9px;font-weight:400;opacity:0.7;">売値</span></th>
+                                        <th>1杯 (15g)<br><span style="font-size:9px;font-weight:400;opacity:0.7;">売値</span></th>
+                                        <th>粗利率</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -1924,6 +1923,26 @@
                         return (b.priceJPY || parsePriceToNumber(b.price)) - (a.priceJPY || parsePriceToNumber(a.price));
                     case 'origin':
                         return a.origin.localeCompare(b.origin);
+                    case 'roaster':
+                        return a.roaster.localeCompare(b.roaster) || a.name.localeCompare(b.name);
+                    case 'freshness-peak': {
+                        // Peak(飲み頃)が近い順: degassing → peak → good → drink soon → past prime
+                        const order = { degassing: 1, peak: 2, good: 3, 'drink-soon': 4, 'past-prime': 5 };
+                        const fa = getFreshnessInfo(a.orderDate);
+                        const fb = getFreshnessInfo(b.orderDate);
+                        const sa = fa ? (order[fa.status] || 99) : 99;
+                        const sb = fb ? (order[fb.status] || 99) : 99;
+                        return sa - sb;
+                    }
+                    case 'freshness-urgent': {
+                        // 急ぎ順: past prime → drink soon → good → peak → degassing
+                        const order = { 'past-prime': 1, 'drink-soon': 2, good: 3, peak: 4, degassing: 5 };
+                        const fa = getFreshnessInfo(a.orderDate);
+                        const fb = getFreshnessInfo(b.orderDate);
+                        const sa = fa ? (order[fa.status] || 99) : 99;
+                        const sb = fb ? (order[fb.status] || 99) : 99;
+                        return sa - sb;
+                    }
                     case 'date-new':
                         if (!a.orderDate && !b.orderDate) return 0;
                         if (!a.orderDate) return 1;
