@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Guide | 設備・器具ガイド - POPX Coffee Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #fcfcfc;
+            --text-dark: #4b3e3c;
+            --navy: #243668;
+            --pink: #ff9fb4;
+            --cyan: #7af2e0;
+            --card-border: rgba(0, 0, 0, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            letter-spacing: 0.05em;
+            font-feature-settings: "palt" 1;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.2rem 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo span {
+            display: block;
+            font-size: 0.8rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .page-title-jp {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(75, 62, 60, 0.7);
+            margin-top: 0.2rem;
+        }
+
+        .header-right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .hub-link {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            border-radius: 100vh;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .hub-link:hover {
+            background: var(--text-dark);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 5.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Navigation Tabs */
+        .tab-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        .tab-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button:hover {
+            color: var(--navy);
+        }
+
+        .tab-button.active {
+            color: var(--navy);
+            border-bottom-color: var(--navy);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--navy);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .section-title-jp {
+            font-size: 1.1rem;
+            color: rgba(75, 62, 60, 0.6);
+            font-weight: 600;
+        }
+
+        .subsection {
+            margin-bottom: 3rem;
+        }
+
+        .subsection-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--card-border);
+            color: var(--navy);
+        }
+
+        /* Equipment Cards */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .equipment-card {
+            background: white;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .equipment-card.fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .equipment-card:hover {
+            border-color: var(--navy);
+            box-shadow: 0 8px 24px rgba(36, 54, 104, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .equipment-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .equipment-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .equipment-description {
+            margin-bottom: 0.8rem;
+        }
+
+        .description-en {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: rgba(75, 62, 60, 0.85);
+        }
+
+        .description-jp {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: white;
+            border: 2px solid var(--navy);
+            border-radius: 12px;
+            padding: 3rem;
+            margin-top: 4rem;
+        }
+
+        .summary-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--navy);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-item {
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--navy);
+        }
+
+        .summary-item-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .summary-item-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .total-estimate {
+            background: linear-gradient(135deg, rgba(36, 54, 104, 0.05) 0%, rgba(127, 242, 224, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--cyan);
+        }
+
+        .total-label {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .total-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid var(--card-border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: rgba(75, 62, 60, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .header-left,
+            .header-center,
+            .header-right {
+                width: 100%;
+                flex: none;
+                text-align: center;
+            }
+
+            .header-left {
+                justify-content: center;
+            }
+
+            .page-title {
+                font-size: 1.1rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+                margin-top: 12rem;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-navigation {
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .subsection-title {
+                font-size: 1.2rem;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <a href="./08_POPX_Coffee_Hub.html" class="logo">
+                ☕ ぽっぷくす
+                <span>こーひー らぼ</span>
+            </a>
+        </div>
+        <div class="header-center">
+            <div class="page-title">Equipment Guide</div>
+            <div class="page-title-jp">設備・器具ガイド</div>
+        </div>
+        <div class="header-right">
+            <a href="./08_POPX_Coffee_Hub.html" class="hub-link">← Hub</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" data-tab="hand-drip">
+                Hand Drip / ハンドドリップ
+            </button>
+            <button class="tab-button" data-tab="espresso">
+                Espresso / エスプレッソ
+            </button>
+            <button class="tab-button" data-tab="milk-brew">
+                Milk Brew / ミルクブリュー
+            </button>
+            <button class="tab-button" data-tab="glassware">
+                Glassware / グラスウェア
+            </button>
+            <button class="tab-button" data-tab="essentials">
+                Essentials / その他必需品
+            </button>
+        </div>
+
+        <!-- TAB 1: Hand Drip -->
+        <div class="tab-content active" id="hand-drip">
+            <div class="section-header">
+                <h1 class="section-title">Hand Drip</h1>
+                <p class="section-title-jp">ハンドドリップ</p>
+            </div>
+
+            <!-- Grinder Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Grinder / グラインダー</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Comandante C40 MK4</div>
+                        <div class="equipment-price">~¥45,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The hand grinder that changed everything. German engineering, 48mm conical burr, unmatched consistency. The choice of world champion baristas.</div>
+                            <div class="description-jp">すべてを変えたハンドグラインダー。ドイツの工学、48mmコニカル刃、比類なき均一性。世界チャンピオンバリスタの選択。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Fellow Ode Brew Grinder Gen 2</div>
+                        <div class="equipment-price">~¥55,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Purpose-built for pour-over. 64mm flat burrs, single dose design, no retention. Beautiful and functional.</div>
+                            <div class="description-jp">プアオーバー専用設計。64mmフラット刃、シングルドーズ、残粉なし。美しく機能的。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Timemore Sculptor 078S</div>
+                        <div class="equipment-price">~¥80,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The new benchmark in electric grinders. 78mm SSP-style burrs, exceptional clarity.</div>
+                            <div class="description-jp">電動グラインダーの新基準。78mm SSPスタイル刃、卓越したクラリティ。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dripper Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Dripper / ドリッパー</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Hario V60 02</div>
+                        <div class="equipment-price">~¥2,000–5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The industry standard. One large hole, spiral ribs, infinite technique possibilities. Every serious barista owns one.</div>
+                            <div class="description-jp">業界標準。大きな一つ穴、スパイラルリブ、無限のテクニックの可能性。全てのシリアスなバリスタが持っている。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Origami Dripper</div>
+                        <div class="equipment-price">~¥4,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Japanese craftsmanship meets function. 20 ribs for maximum airflow, works with both V60 and wave filters.</div>
+                            <div class="description-jp">日本のクラフトマンシップと機能の融合。20のリブで最大のエアフロー。V60フィルターもウェーブフィルターも使える。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Kalita Wave 185</div>
+                        <div class="equipment-price">~¥3,500</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Flat bottom with three holes for even extraction. More forgiving than V60, consistently excellent cups.</div>
+                            <div class="description-jp">フラットボトムに3つの穴で均一抽出。V60より寛容で、安定して素晴らしいカップを。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">April Brewer</div>
+                        <div class="equipment-price">~¥5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Scandinavian minimalism. Flat-bottom design optimized for clarity and sweetness.</div>
+                            <div class="description-jp">スカンジナビアン・ミニマリズム。クラリティと甘さに最適化されたフラットボトムデザイン。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kettle Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Kettle / ケトル</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Fellow Stagg EKG Pro</div>
+                        <div class="equipment-price">~¥25,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The pour-over kettle. Precision gooseneck, 0.1°C accuracy, Bluetooth connectivity. Pour like a pro.</div>
+                            <div class="description-jp">プアオーバー用ケトルの最高峰。精密グースネック、0.1°C精度、Bluetooth接続。プロのように注ぐ。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Brewista Artisan Electric</div>
+                        <div class="equipment-price">~¥18,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Professional-grade with customizable temperature presets. Reliable workhorse.</div>
+                            <div class="description-jp">カスタマイズ可能な温度プリセット付きプロフェッショナルグレード。信頼のワークホース。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scale Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Scale / スケール</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Acaia Pearl S</div>
+                        <div class="equipment-price">~¥30,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The barista's scale. 0.1g precision, auto-timing, Bluetooth recipe tracking. Beautiful and precise.</div>
+                            <div class="description-jp">バリスタのためのスケール。0.1g精度、オートタイマー、Bluetoothレシピ記録。美しく精密。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Timemore Black Mirror Basic+</div>
+                        <div class="equipment-price">~¥8,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Excellent performance at a fraction of the price. 0.1g, built-in timer, responsive.</div>
+                            <div class="description-jp">コスパ最強。0.1g精度、内蔵タイマー、レスポンシブ。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server & Filter Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Server & Filter / サーバー＆フィルター</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Hario V60 Range Server 600ml</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Perfect companion to the V60 dripper. Heat-resistant glass, clean lines.</div>
+                            <div class="description-jp">V60ドリッパーの完璧なパートナー。耐熱ガラス、クリーンなラインス。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Kinto SCS Coffee Server 600ml</div>
+                        <div class="equipment-price">~¥3,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Japanese minimalism meets functionality. Elegant silhouette, excellent heat retention.</div>
+                            <div class="description-jp">日本のミニマリズムと機能性の融合。エレガントなシルエット、優れた保温性。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Hario V60 Filter 02</div>
+                        <div class="equipment-price">~¥600/100枚</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Bleached or natural. The classic, reliable choice for V60 brewing.</div>
+                            <div class="description-jp">ブリーチか無漂白。V60抽出のための古典的で信頼のできる選択。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Sibarist FAST Specialty Coffee Filter</div>
+                        <div class="equipment-price">~¥3,000/100枚</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Ultra-fast flow rate for high extraction recipes. Game changer for competition-style brewing.</div>
+                            <div class="description-jp">高抽出レシピのための超高速フローレート。コンペティションスタイルの抽出を変えるゲームチェンジャー。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Espresso -->
+        <div class="tab-content" id="espresso">
+            <div class="section-header">
+                <h1 class="section-title">Espresso</h1>
+                <p class="section-title-jp">エスプレッソ</p>
+            </div>
+
+            <!-- Machine Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Machine / マシン</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">La Marzocco Linea Mini</div>
+                        <div class="equipment-price">~¥600,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Commercial quality in a home-sized package. Dual boiler, PID temperature control, pre-infusion. The gold standard for small cafés.</div>
+                            <div class="description-jp">家庭サイズにコマーシャル品質。デュアルボイラー、PID温度制御、プリインフュージョン。小規模カフェのゴールドスタンダード。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Decent DE1PRO</div>
+                        <div class="equipment-price">~¥500,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The future of espresso. Full pressure profiling, real-time data visualization. For baristas who love technology.</div>
+                            <div class="description-jp">エスプレッソの未来。フル圧力プロファイリング、リアルタイムデータ可視化。テクノロジーを愛するバリスタへ。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Sanremo Cube</div>
+                        <div class="equipment-price">~¥400,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Italian craftsmanship, compact form. Volumetric dosing, multi-boiler. A serious machine with personality.</div>
+                            <div class="description-jp">イタリアのクラフトマンシップ、コンパクトフォルム。ボリュメトリック・ドーシング、マルチボイラー。個性を持つシリアスマシン。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grinder Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Grinder / グラインダー</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Niche Zero</div>
+                        <div class="equipment-price">~¥100,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Zero retention single-dose grinder. 63mm Mazzer burrs, near-zero grind retention. Perfect for café use.</div>
+                            <div class="description-jp">ゼロ残粉シングルドーズ。63mm Mazzer刃。カフェ使用に最適。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Eureka Mignon Specialità</div>
+                        <div class="equipment-price">~¥70,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Quiet, consistent, reliable. Italian-made with stepless adjustment.</div>
+                            <div class="description-jp">静音、安定、信頼。イタリア製のステップレス調整。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Lagom P64</div>
+                        <div class="equipment-price">~¥180,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">64mm flat burrs with SSP options. One of the best flat burr grinders available. Exceptional clarity for espresso.</div>
+                            <div class="description-jp">64mmフラット刃、SSPオプション対応。最高峰のフラットバーグラインダー。エスプレッソの卓越したクラリティ。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessories Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Accessories / アクセサリー</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Normcore V4 Spring-loaded Tamper</div>
+                        <div class="equipment-price">~¥8,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Self-leveling tamper with calibrated 15kg spring. Consistent pressure every time.</div>
+                            <div class="description-jp">キャリブレーション済み15kgスプリングの自動水平タンパー。毎回一定の圧力。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">WDT Tool</div>
+                        <div class="equipment-price">~¥3,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Weiss Distribution Technique. Break up channeling in your espresso grounds for superior extraction.</div>
+                            <div class="description-jp">ワイス・ディストリビューション・テクニック。チャネリングを解決し、優れた抽出を実現。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Dosing Cup</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Precise single-dose espresso preparation. Simplify your workflow.</div>
+                            <div class="description-jp">正確なシングルドーズのエスプレッソ準備。ワークフロー簡素化。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Knock Box</div>
+                        <div class="equipment-price">~¥5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Premium stainless steel knock box. Essential for any espresso station.</div>
+                            <div class="description-jp">プレミアムステンレス製ノックボックス。エスプレッソステーションの必需品。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Puck Screen</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Reduce turbulence in the portafilter for cleaner espresso shots and easier cleaning.</div>
+                            <div class="description-jp">ポルタフィルター内の乱流を減らし、よりクリーンなエスプレッソを。クリーニング も簡単に。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Milk Brew -->
+        <div class="tab-content" id="milk-brew">
+            <div class="section-header">
+                <h1 class="section-title">Milk Brew</h1>
+                <p class="section-title-jp">ミルクブリュー</p>
+            </div>
+
+            <div class="subsection">
+                <h2 class="subsection-title">Equipment / 設備</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Hario Cold Brew Pot 1000ml</div>
+                        <div class="equipment-price">~¥2,500</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Simple immersion brewer adapted for milk brew. Coffee grounds steep directly in cold milk for 8-24 hours.</div>
+                            <div class="description-jp">ミルクブリュー用に転用できるシンプルな浸漬式ブリューワー。コーヒー粉を冷たいミルクに8-24時間漬け込む。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">French Press (Bodum Chambord)</div>
+                        <div class="equipment-price">~¥5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The easiest milk brew method. Coarse ground coffee in cold milk, plunge after steeping.</div>
+                            <div class="description-jp">最も簡単なミルクブリュー。粗挽きコーヒーを冷たいミルクに、浸漬後にプランジ。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Cold Brew Tower (Yama 6-8 Cup)</div>
+                        <div class="equipment-price">~¥15,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Slow drip through grounds — adaptable for milk brew with modified technique.</div>
+                            <div class="description-jp">粉を通してスロードリップ。テクニック次第でミルクブリューにも応用可能。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Fine Mesh Strainer + Cheesecloth</div>
+                        <div class="equipment-price">~¥1,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Essential for filtering milk brew — removes all sediment for silky smooth texture.</div>
+                            <div class="description-jp">ミルクブリューのフィルタリングに必須。全ての沈殿物を除去しシルキーな質感に。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Fresh Whole Milk</div>
+                        <div class="equipment-price">~¥300-500/liter</div>
+                        <div class="equipment-description">
+                            <div class="description-en">High-fat whole milk recommended for best results. Oat milk is a delicious alternative.</div>
+                            <div class="description-jp">最高の結果のために高脂肪牛乳を推奨。オート・ミルクは美味しい代替案。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: Glassware -->
+        <div class="tab-content" id="glassware">
+            <div class="section-header">
+                <h1 class="section-title">Glassware</h1>
+                <p class="section-title-jp">グラスウェア</p>
+            </div>
+
+            <!-- Wine Glass Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Wine Glass for Hand Drip / ハンドドリップ用ワイングラス</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Riedel Veritas Riesling Glass</div>
+                        <div class="equipment-price">~¥8,000/pair</div>
+                        <div class="equipment-description">
+                            <div class="description-en">The sommelier's choice for aromatic beverages. Thin rim, wide bowl captures floral and fruit aromatics perfectly. Elegant and dramatic presentation.</div>
+                            <div class="description-jp">アロマティックな飲料のためのソムリエの選択。薄いリム、広いボウルがフローラルとフルーツのアロマを完璧に捉える。エレガントでドラマチックなプレゼンテーション。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Zalto Denk'Art Universal</div>
+                        <div class="equipment-price">~¥10,000/glass</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Hand-blown Austrian crystal. Impossibly thin, feather-light, enhances every aroma. The ultimate luxury coffee experience.</div>
+                            <div class="description-jp">オーストリアの手吹きクリスタル。信じられないほど薄く、羽のように軽く、すべてのアロマを引き立てる。究極のラグジュアリーコーヒー体験。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Kimura Glass Compact 8oz</div>
+                        <div class="equipment-price">~¥3,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Japanese handcrafted glass. Clean lines, perfect weight, understated luxury. Fits the POPX aesthetic.</div>
+                            <div class="description-jp">日本の手作りガラス。クリーンなライン、完璧な重量、控えめなラグジュアリー。POPXの美学にフィット。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latte Glass Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Café Latte Glass / カフェラテグラス</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Loveramics Bond Latte Glass 280ml</div>
+                        <div class="equipment-price">~¥2,500</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Designed specifically for latte art. Double-wall option available. Modern, clean design.</div>
+                            <div class="description-jp">ラテアート専用設計。ダブルウォールオプションあり。モダンでクリーンなデザイン。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Kinto Kronos Double Wall Glass 350ml</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Japanese design excellence. Double-wall keeps temperature while looking beautiful.</div>
+                            <div class="description-jp">日本のデザインエクセレンス。ダブルウォールで温度をキープしながら美しく。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">notNeutral VERO Latte 12oz</div>
+                        <div class="equipment-price">~¥3,500</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Specialty coffee industry favorite. Thick, durable, professional. Available in colors matching POPX palette.</div>
+                            <div class="description-jp">スペシャルティコーヒー業界のフェイバリット。厚く、丈夫、プロフェッショナル。POPXカラーに合う色展開。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Essentials -->
+        <div class="tab-content" id="essentials">
+            <div class="section-header">
+                <h1 class="section-title">Other Essentials</h1>
+                <p class="section-title-jp">その他必需品</p>
+            </div>
+
+            <!-- Water Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Water / 水</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">BWT Water Filter Pitcher</div>
+                        <div class="equipment-price">~¥5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Water is 98% of coffee. BWT adds magnesium for enhanced extraction and sweetness.</div>
+                            <div class="description-jp">コーヒーの98%は水。BWTはマグネシウムを添加し、抽出と甘さを高める。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">BWT Under-Sink System</div>
+                        <div class="equipment-price">~¥30,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Permanent water filtration solution. Professional-grade for high-volume brewing.</div>
+                            <div class="description-jp">恒久的な水フィルタリングソリューション。高容量抽出向けプロフェッショナルグレード。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Third Wave Water Mineral Packets</div>
+                        <div class="equipment-price">~¥3,000/12pk</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Add to distilled water for perfect brewing water. SCA gold standard.</div>
+                            <div class="description-jp">蒸留水に加えてパーフェクトな抽出水に。SCAゴールドスタンダード。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storage Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Storage / 保存</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Airscape Coffee Canister</div>
+                        <div class="equipment-price">~¥5,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Patented plunger lid removes air. Keeps beans fresh up to 50% longer.</div>
+                            <div class="description-jp">特許取得プランジャー蓋で空気を除去。豆の鮮度を最大50%長くキープ。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Fellow Atmos</div>
+                        <div class="equipment-price">~¥6,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Vacuum-sealed canister — twists to remove air. Sleek, minimal, effective.</div>
+                            <div class="description-jp">真空密閉キャニスター。ツイストで空気を除去。スリーク、ミニマル、効果的。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cleaning Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Cleaning / クリーニング</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Cafiza Espresso Machine Cleaner</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Professional-grade espresso machine cleaner. Essential for equipment maintenance.</div>
+                            <div class="description-jp">プロフェッショナルグレードのエスプレッソマシンクリーナー。設備メンテナンスに必須。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Grinder Cleaning Tablets (Grindz)</div>
+                        <div class="equipment-price">~¥1,500</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Safe, effective cleaning for burr grinders. Removes oil buildup and improves consistency.</div>
+                            <div class="description-jp">バーグラインダー用セーフで効果的なクリーニング。油分の蓄積を除去し一貫性を向上。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Microfiber Cloth + Brush Set</div>
+                        <div class="equipment-price">~¥2,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Essential tools for equipment care and presentation. Lint-free, non-abrasive.</div>
+                            <div class="description-jp">設備ケアとプレゼンテーションのための必需品。糸くずが出ない、非研磨。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Serving Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Serving / サービング</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Milk Pitcher (Motta Europa 500ml)</div>
+                        <div class="equipment-price">~¥4,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Professional milk steaming pitcher. Perfect spout for latte art. Italian quality.</div>
+                            <div class="description-jp">プロフェッショナルなミルク蒸気ピッチャー。ラテアート用の完璧なスパウト。イタリアン品質。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Cupping Bowls (6-12 Set)</div>
+                        <div class="equipment-price">~¥8,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Ceramic bowls for professional coffee cupping. Standardized for consistency and evaluation.</div>
+                            <div class="description-jp">プロフェッショナルなコーヒーカッピング用セラミックボウル。一貫性と評価の標準化。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Cupping Spoons</div>
+                        <div class="equipment-price">~¥3,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Specialized spoons for coffee tasting. Design allows proper slurping technique.</div>
+                            <div class="description-jp">コーヒー試飲専用スプーン。正しいスラーピングテクニックのためのデザイン。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Furniture Section -->
+            <div class="subsection">
+                <h2 class="subsection-title">Furniture & Setup / 家具＆セットアップ</h2>
+                <div class="equipment-grid">
+                    <div class="equipment-card">
+                        <div class="equipment-name">Bar Counter / Brew Bar Table</div>
+                        <div class="equipment-price">~¥80,000–150,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Dedicated brewing station. Ergonomic height, durable surface. The heart of your coffee space.</div>
+                            <div class="description-jp">専用の抽出ステーション。人間工学的な高さ、耐久性のある表面。コーヒースペースの心臓。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Bar Stools (2-4)</div>
+                        <div class="equipment-price">~¥30,000–60,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Comfortable seating for tasting and observation. Minimalist design matching POPX aesthetic.</div>
+                            <div class="description-jp">試飲と観察のための快適な座席。POPXの美学に合うミニマリストデザイン。</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-card">
+                        <div class="equipment-name">Display Shelf for Beans</div>
+                        <div class="equipment-price">~¥20,000–40,000</div>
+                        <div class="equipment-description">
+                            <div class="description-en">Showcase your coffee selection. Clean lines, protective glass, mood lighting options.</div>
+                            <div class="description-jp">コーヒーセレクションを展示。クリーンなライン、保護ガラス、照明オプション。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h2 class="summary-title">Total Cost Estimate / 総コスト推定</h2>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-item-name">Hand Drip Setup</div>
+                    <div class="summary-item-value">¥120,000–180,000</div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-item-name">Espresso Setup</div>
+                    <div class="summary-item-value">¥700,000–900,000</div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-item-name">Milk Brew Setup</div>
+                    <div class="summary-item-value">¥25,000–30,000</div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-item-name">Glassware</div>
+                    <div class="summary-item-value">¥50,000–80,000</div>
+                </div>
+
+                <div class="summary-item">
+                    <div class="summary-item-name">Other Essentials</div>
+                    <div class="summary-item-value">¥50,000–70,000</div>
+                </div>
+            </div>
+
+            <div class="total-estimate">
+                <div class="total-label">Complete Setup Estimate</div>
+                <div class="total-value">¥950,000 – ¥1,260,000</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>POPX Coffee Lab Equipment Guide | 2024 | All information is for reference purposes. Prices may vary by region and availability.</p>
+        <p>ぽっぷくす こーひー らぼ 設備ガイド | 情報は参考目的です。価格は地域と在庫により異なる可能性があります。</p>
+    </footer>
+
+    <script>
+        // Tab Navigation
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+
+                // Scroll to top smoothly
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger animation with a delay
+                    setTimeout(() => {
+                        entry.target.classList.add('fade-in');
+                    }, index * 50);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all equipment cards
+        document.querySelectorAll('.equipment-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
